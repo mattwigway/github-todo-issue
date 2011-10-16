@@ -38,10 +38,17 @@ post '/' do
             :labels => ['todo']
           }
 
-          Net::HTTP.post_form(URI.parse('https://api.github.com/repos/#{commit[:repository][:owner][:name]}/#{commit[:repository][:name]}/issues'), data)
+          url = 'https://api.github.com/repos/#{commit[:repository][:owner][:name]}/#{commit[:repository][:name]}/issues'
+          puts "Posting to #{url} with #{data}"
+
+          Net::HTTP.post_form(URI.parse(url), data)
 
         end
       end
     end
   end
+end
+
+get '/' do
+  "This app does not support GET access. Add the current URL to your git post-receive hooks."
 end
